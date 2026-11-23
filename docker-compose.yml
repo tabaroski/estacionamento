@@ -1,0 +1,28 @@
+# Ambiente de desenvolvimento: banco e broker MQTT locais.
+# Uso: docker compose up -d   (para parar: docker compose down)
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: estac
+      POSTGRES_PASSWORD: estac
+      POSTGRES_DB: estacionamento
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U estac -d estacionamento"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./infra/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+volumes:
+  pgdata:
