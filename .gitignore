@@ -1,0 +1,20 @@
+# Dependências e build
+node_modules/
+dist/
+coverage/
+
+# Segredos: nunca versionar
+.env
+.env.*
+!.env.example
+
+# Firmware (PlatformIO)
+.pio/
+
+# Sistema e editores
+.DS_Store
+Thumbs.db
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea/
